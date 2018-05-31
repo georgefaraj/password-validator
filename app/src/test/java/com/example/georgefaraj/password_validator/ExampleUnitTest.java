@@ -25,5 +25,11 @@ public class ExampleUnitTest {
         assert(test.validate("notpassword"));
     }
 
+    @Test
+    public void passwordLength(){
+        Validator test = new Validator();
+        assertFalse(test.validate("a"));
+        assert(test.validate("aaaaaaaa"));
+    }
 
 }
