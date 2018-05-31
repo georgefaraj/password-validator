@@ -13,6 +13,13 @@ import static org.junit.Assert.*;
 
 public class ExampleUnitTest {
 
+    private Validator test;
+
+    @Before
+    public void setUp() {
+        test = new Validator();
+    }
+
     @Test
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
@@ -20,16 +27,32 @@ public class ExampleUnitTest {
 
     @Test
     public void notPassword(){
-        Validator test = new Validator();
         assertFalse(test.validate("password"));
-        assert(test.validate("notpassword"));
+        assert(test.validate("GoodPassword1!"));
     }
 
     @Test
     public void passwordLength(){
-        Validator test = new Validator();
         assertFalse(test.validate("a"));
-        assert(test.validate("aaaaaaaa"));
+        assert(test.validate("GoodPassword1!"));
+    }
+
+    @Test
+    public void atLeast1Upper(){
+        assertFalse(test.validate("aaaaaaa1!"));
+        assert(test.validate("GoodPassword1!"));
+    }
+
+    @Test
+    public void atLeast1Special(){
+        assertFalse(test.validate("Aaaaaaaa1"));
+        assert(test.validate("GoodPassword1!"));
+    }
+
+    @Test
+    public void atLeast1Number(){
+        assertFalse(test.validate("Aaaaaaaa!"));
+        assert(test.validate("GoodPassword1!"));
     }
 
 }
