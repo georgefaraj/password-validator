@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.widget.EditText;
+import org.junit.Rule;
+import android.support.test.rule.ActivityTestRule;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,6 +28,10 @@ import static android.support.test.espresso.matcher.ViewMatchers.withText;
  */
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
+
+    @Rule
+    public ActivityTestRule<MainActivity> menuActivityTestRule = new ActivityTestRule<>(MainActivity.class);
+
     @Test
     public void useAppContext() {
         // Context of the app under test.
@@ -35,9 +41,20 @@ public class ExampleInstrumentedTest {
     }
 
     @Test
-    public void validPassword() {
-        /*
-        * *
-        * */
+    public void validPassword() throws InterruptedException {
+        onView(withId(R.id.editText)).perform(typeText("GoodPassword!1"),closeSoftKeyboard());
+        Thread.sleep(1500);
+        onView(withId(R.id.button)).perform(click());
+        Thread.sleep(1500);
+        onView(withId(R.id.responseText)).check(matches(withText("Strong!")));
+    }
+
+    @Test
+    public void invalidPassword() throws InterruptedException {
+        onView(withId(R.id.editText)).perform(typeText("a"),closeSoftKeyboard());
+        Thread.sleep(1500);
+        onView(withId(R.id.button)).perform(click());
+        Thread.sleep(1500);
+        onView(withId(R.id.responseText)).check(matches(withText("Not strong enough!")));
     }
 }
