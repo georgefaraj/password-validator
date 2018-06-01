@@ -28,31 +28,31 @@ public class ExampleUnitTest {
     @Test
     public void notPassword(){
         assertFalse(test.validate("password"));
-        assert(test.validate("GoodPassword1!"));
+        assertTrue(test.validate("GoodPassword1!"));
     }
 
     @Test
     public void passwordLength(){
         assertFalse(test.validate("a"));
-        assert(test.validate("GoodPassword1!"));
+        assertTrue(test.validate("GoodPassword1!"));
     }
 
     @Test
     public void atLeast1Upper(){
         assertFalse(test.validate("aaaaaaa1!"));
-        assert(test.validate("GoodPassword1!"));
+        assertTrue(test.validate("GoodPassword1!"));
     }
 
     @Test
     public void atLeast1Special(){
         assertFalse(test.validate("Aaaaaaaa1"));
-        assert(test.validate("GoodPassword1!"));
+        assertTrue(test.validate("GoodPassword1!"));
     }
 
     @Test
     public void atLeast1Number(){
         assertFalse(test.validate("Aaaaaaaa!"));
-        assert(test.validate("GoodPassword1!"));
+        assertTrue(test.validate("GoodPassword1!"));
     }
 
 }
