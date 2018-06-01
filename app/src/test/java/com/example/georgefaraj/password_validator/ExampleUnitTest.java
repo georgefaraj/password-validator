@@ -22,14 +22,14 @@ public class ExampleUnitTest {
     public void notPassword(){
         Validator test = new Validator();
         assertFalse(test.validate("password"));
-        assert(test.validate("notpassword"));
+        assertTrue(test.validate("notpassword"));
     }
 
     @Test
     public void passwordLength(){
         Validator test = new Validator();
         assertFalse(test.validate("a"));
-        assert(test.validate("aaaaaaaa"));
+        assertTrue(test.validate("aaaaaaaa"));
     }
 
 }
